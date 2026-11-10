@@ -14,6 +14,18 @@ inga typsnitt eller skript från tredje part).
 python3 -m http.server 8765      # öppna http://localhost:8765
 ```
 
+## Data bakom sidan
+
+| Fil | Innehåll | Skapas av |
+| --- | --- | --- |
+| `assets/results.js` | träffsäkerhet per fråga, före och efter träning | utvärderingsfilerna (`results/` på Hugging Face) |
+| `assets/static.js` | beslutskartan (regelmotorn), träningskurvorna (loggar), tidslinjen (datamängden) | `tools/build_static_data.py` |
+| `assets/data.js` | modellernas verkliga svar för *Prova själv*, *Ändra i akten*, granskningssimulatorn och kalibreringen | `tools/build_data.py` |
+
+Delarna som visar modellsvar döljs av sig själva när `assets/data.js` är tom (`window.DATA=null`). De fylls på när
+`tools/build_data.py` körts på utdata från `berzelius/sven_predict.py` i huvudrepot. Inga siffror är påhittade: det som
+inte kan visas med verkliga data visas inte.
+
 Resultattabellen läser `assets/results.js`, som är genererad ur utvärderingsfilerna i datamängden
 (`results/` på Hugging Face). Siffrorna ska alltid följa dem. Webbplatsens kod är MIT-licensierad; modellerna är
 Apache-2.0 och datamängden CC BY 4.0.

@@ -1,1 +1,4 @@
 .DS_Store
+.preds/
+.preds-mock/
+.logs/

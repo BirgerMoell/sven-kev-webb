@@ -10,7 +10,7 @@
 <meta property="og:description" content="Öppna modeller som läser en akt och svarar på frågor om utfallet. Forskningsprototyper med öppna data, öppen kod och ärlig utvärdering.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=4">
 </head>
 <body>
 <a class="skip" href="#innehall">Hoppa till innehållet</a>
@@ -22,13 +22,15 @@
       <span>Sven &amp; Kev<small>Beslutsmodeller för förvaltning</small></span>
     </a>
     <ul id="menu">
-      <li><a href="#vad">Vad det är</a></li>
+      <li><a href="#nytta">Nytta</a></li>
+      <li data-needs="model"><a href="#prova">Prova</a></li>
+      <li><a href="#karta">Beslutskarta</a></li>
+      <li><a href="#traning">Träning</a></li>
       <li><a href="#sa-fungerar-det">Så fungerar det</a></li>
       <li><a href="#modellerna">Modellerna</a></li>
       <li><a href="#resultat">Resultat</a></li>
-      <li><a href="#anvanda">Använd dem</a></li>
+      <li><a href="#anvanda">Använd</a></li>
       <li><a href="#ansvar">Ansvar</a></li>
-      <li><a href="#data">Data</a></li>
     </ul>
     <button class="icon-btn theme-btn" id="theme" aria-label="Växla mellan ljust och mörkt läge" title="Ljust / mörkt">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
@@ -46,11 +48,11 @@
     <div>
       <span class="eyebrow">Öppen forskning · Svensk förvaltning</span>
       <h1>Små modeller som lär sig hur <em>myndigheter</em> avgör ärenden</h1>
-      <p class="lede">Sven och Kev läser en akt och svarar på frågor om utfallet: bifall eller avslag, brist eller ingen brist, vad handläggaren bör göra härnäst. De är tränade på publicerade beslut och på ärenden där facit följer av lagtexten, och allt är öppet: modeller, data och kod.</p>
+      <p class="lede">Sven och Kev läser en akt och svarar på frågor om utfallet: bifall eller avslag, brist eller ingen brist, vad handläggaren bör göra härnäst. De svarar med en sannolikhet per alternativ, så att osäkerhet syns, och allt är öppet: modeller, data och kod.</p>
       <div class="cta">
-        <a class="btn primary" href="#sa-fungerar-det">Se hur de fungerar
+        <a class="btn primary" href="#prova">Prova själv
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn ghost" href="#resultat">Läs resultaten</a>
+        <a class="btn ghost" href="#nytta">Varför det är användbart</a>
       </div>
       <div class="hero-meta">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Apache-2.0 och CC BY 4.0</span>
@@ -59,19 +61,19 @@
       </div>
     </div>
 
-    <figure class="case" style="margin:0" aria-label="Exempel på en uppgift: en akt, en fråga och svarsalternativ">
-      <div class="case-bar"><i></i><i></i><i></i><b>uppgift · förvaltningslagen</b></div>
+    <figure class="case" style="margin:0" aria-label="Verkliga modellsvar på ärenden ur testmängden" id="hero-case">
+      <div class="case-bar"><i></i><i></i><i></i><b id="hc-title">uppgift</b>
+        <span class="dots" id="hc-dots" role="tablist" aria-label="Byt exempel"></span></div>
       <div class="case-body">
         <div class="case-label">Akten</div>
-        <div class="akt"><span class="k">myndighet</span>: <span class="s">Centrala studiestödsnämnden</span><br><span class="k">ärende</span>: <span class="s">avslag på ansökan om studiemedel</span><br><span class="k">omständighet</span>: <span class="s">Handläggaren var ombud för parten i just detta ärende innan hon anställdes vid myndigheten.</span></div>
+        <div class="akt" id="hc-akt"></div>
       </div>
       <div class="q">
-        <div class="case-label">Frågan</div>
-        <h4>Vad ska handläggaren göra?</h4>
-        <div class="opt"><span>Anmäla jäv</span><span class="track"><span class="fill" data-w="94"></span></span></div>
-        <div class="opt"><span>Fortsätta</span><span class="track"><span class="fill dim" data-w="6"></span></span></div>
+        <div class="case-label">Frågan · svar från Kev</div>
+        <h4 id="hc-q"></h4>
+        <div id="hc-opts"></div>
       </div>
-      <figcaption class="case-foot">Så ser en uppgift ut. Akten är påhittad, staplarna är en illustration av hur modellen svarar med en sannolikhet per alternativ, inte en körning.</figcaption>
+      <figcaption class="case-foot">Verkliga svar från Kev 4B på ärenden ur testmängden, som modellen aldrig sett. Akterna är påhittade. <a href="#prova">Prova fler.</a></figcaption>
     </figure>
   </div>
 </div>
@@ -88,30 +90,196 @@
   </div>
 </section>
 
-<!-- ═════════ VAD ═════════ -->
-<section id="vad">
+<!-- ═════════ NYTTA ═════════ -->
+<section id="nytta">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Vad det är</span>
-      <h2>Beslutsstöd som går att granska</h2>
-      <p>En handläggare väger fakta mot regler hundratals gånger i veckan. Sven och Kev är ett försök att lära små, billiga modeller samma sorts bedömning, och att mäta ärligt hur långt det räcker.</p>
+      <span class="eyebrow">Varför det är användbart</span>
+      <h2>Där tiden går, och där det måste bli rätt</h2>
+      <p>Handläggning följer ett fåtal tydliga prövningssteg, om och om igen. En modell som ger en <em>sannolikhet</em> i stället för ett påstående kan användas där människan fortfarande bestämmer: för att sortera, dubbelkolla och påminna.</p>
     </div>
-    <div class="cols3">
-      <article class="card rv">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg></div>
-        <h3>De läser akten</h3>
-        <p>Indata är ärendets fakta, inte myndighetens egen bedömning. I riktiga beslut klipps utfall och motivering bort innan modellen ser texten, och facit är det myndigheten faktiskt beslutade.</p>
-      </article>
-      <article class="card rv">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/><path d="M4 6h6M4 19h6" opacity=".45"/></svg></div>
-        <h3>De svarar med sannolikheter</h3>
-        <p>Frågorna är flervalsfrågor och ja/nej-frågor. Modellen ger en sannolikhet per alternativ, så att osäkerhet blir synlig och kan kalibreras i stället för att döljas i en snygg mening.</p>
-      </article>
-      <article class="card rv">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
-        <h3>Allt är öppet</h3>
-        <p>Modellvikter, träningsdata, regelmotorer, insamlingskod och utvärdering ligger öppet. Den som vill kan återskapa varje siffra på den här sidan eller hitta det som är fel.</p>
-      </article>
+    <div class="uses">
+      <article class="use rv"><div class="n">1</div><h3>Sortera kön</h3><p>Ärenden där modellen är mycket säker kan gå i ett snabbare spår. De osäkra går till en erfaren handläggare, i stället för att alla väntar i samma kö.</p></article>
+      <article class="use rv"><div class="n">2</div><h3>Andra ögon</h3><p>Avviker ett utkast från vad modellen väntar sig? Då flaggas det för en extra titt innan beslutet går ut. Fel som annars hittas först vid överklagande kan fångas tidigare.</p></article>
+      <article class="use rv"><div class="n">3</div><h3>Rätt steg i rätt ordning</h3><p>Jäv, kommunicering och rättidsprövning är formella steg som är lätta att missa. Kev väljer rätt nästa steg i <b data-live="fl-acc">95 %</b> av testfallen.</p></article>
+      <article class="use rv"><div class="n">4</div><h3>Körs hos er</h3><p>Ett tillägg på <b>52 respektive 149 MB</b>. Ingen ärendedata behöver lämna huset. Kev tar <b data-live="speed4">…</b> ärenden i sekunden på ett H200-kort.</p></article>
+    </div>
+
+    <div class="sim rv" id="sim" data-needs="model">
+      <div class="sim-head">
+        <div>
+          <span class="eyebrow">Simulator</span>
+          <h3>Granskningsbudget</h3>
+          <p>Människan granskar de ärenden där modellen är minst säker. Dra i reglaget och se hur träffsäker resten är, på testmängden.</p>
+        </div>
+        <div class="sim-ctl">
+          <label class="lbl" for="sim-group">Ärendetyp</label>
+          <select id="sim-group" class="sel"></select>
+          <div class="seg" role="group" aria-label="Modell" style="margin-top:12px">
+            <button type="button" data-simmodel="t4" aria-pressed="true">Kev 4B</button>
+            <button type="button" data-simmodel="t06" aria-pressed="false">Sven 0,6B</button>
+          </div>
+        </div>
+      </div>
+      <div class="sim-body">
+        <div class="sim-chart"><svg id="sim-svg" viewBox="0 0 560 300" role="img" aria-label="Träffsäkerhet för de ärenden som inte granskas, som funktion av granskad andel"></svg></div>
+        <div class="sim-read">
+          <div class="slider-row">
+            <label for="sim-k">Granskas av människa</label>
+            <output id="sim-kv">20 %</output>
+          </div>
+          <input type="range" id="sim-k" min="0" max="100" value="20" step="1" aria-describedby="sim-note">
+          <dl class="stats">
+            <div><dt>Granskas</dt><dd id="s-rev">–</dd></div>
+            <div><dt>Resten har rätt i</dt><dd id="s-acc" class="hi">–</dd><small id="s-base"></small></div>
+            <div><dt>Fel som fångas</dt><dd id="s-caught">–</dd></div>
+          </dl>
+          <p class="note" id="sim-note">Sorterat efter modellens egen säkerhet, minst säkra först. Mätt på testmängden; en verklig kö kan se annorlunda ut. Det här är ingen effektmätning hos en myndighet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ PROVA SJÄLV ═════════ -->
+<section id="prova" class="alt" data-needs="model">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Prova själv</span>
+      <h2>Välj ett ärende och fråga modellerna</h2>
+      <p>Alla ärenden här är ur testmängden, alltså sådana som modellerna aldrig sett. Svaren är verkliga: de är körda i förväg och sparade, inget är påhittat. Några av ärendena har modellerna fel på, och det är med avsikt.</p>
+    </div>
+    <div class="bench rv">
+      <aside class="bench-list" aria-label="Ärenden">
+        <div class="lbl">Ärenden</div>
+        <div id="case-list" role="listbox" aria-label="Välj ärende"></div>
+      </aside>
+      <div class="bench-main">
+        <div class="bench-bar">
+          <div class="seg" role="group" aria-label="Modell">
+            <button type="button" data-bm="4" aria-pressed="true">Kev 4B</button>
+            <button type="button" data-bm="06" aria-pressed="false">Sven 0,6B</button>
+          </div>
+          <div class="seg" role="group" aria-label="Före eller efter träning">
+            <button type="button" data-bt="t" aria-pressed="true">Efter vår träning</button>
+            <button type="button" data-bt="z" aria-pressed="false">Före träning</button>
+          </div>
+          <label class="check"><input type="checkbox" id="show-facit"> Visa facit</label>
+        </div>
+        <div class="bench-grid">
+          <div class="bench-akt">
+            <div class="lbl" id="b-title">Akten</div>
+            <table class="kv" id="b-akt"></table>
+          </div>
+          <div class="bench-q">
+            <div class="lbl">Frågor</div>
+            <div id="b-qs"></div>
+            <button class="btn primary run" id="run" type="button">Fråga modellen</button>
+            <p class="note" id="b-sum" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ÄNDRA I AKTEN ═════════ -->
+<section id="andra" data-needs="model">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Ändra i akten</span>
+      <h2>Följer modellen lagen, eller bara mönstret?</h2>
+      <p>Samma ärende, ett fält i taget. Facit kommer från regelmotorn över studiestödslagen; staplarna är modellens egna sannolikheter för varje utfall. Där lagen byter utfall ska modellen byta med den.</p>
+    </div>
+    <div class="wi rv">
+      <div class="wi-top">
+        <div class="tabs" role="tablist" aria-label="Vad ska ändras?" id="wi-tabs"></div>
+        <div class="wi-seg">
+          <div class="seg" role="group" aria-label="Modell">
+            <button type="button" data-wm="4" aria-pressed="true">Kev 4B</button>
+            <button type="button" data-wm="06" aria-pressed="false">Sven 0,6B</button>
+          </div>
+          <div class="seg" role="group" aria-label="Före eller efter träning">
+            <button type="button" data-wt="t" aria-pressed="true">Efter träning</button>
+            <button type="button" data-wt="z" aria-pressed="false">Före träning</button>
+          </div>
+        </div>
+      </div>
+      <div class="wi-slider">
+        <div class="slider-row"><label for="wi-r" id="wi-lab">Värde</label><output id="wi-out">–</output></div>
+        <input type="range" id="wi-r" min="0" max="3" value="0" step="1">
+      </div>
+      <div class="wi-grid">
+        <div>
+          <div class="lbl">Akten</div>
+          <table class="kv" id="wi-akt"></table>
+        </div>
+        <div>
+          <div class="lbl">Facit enligt regelmotorn</div>
+          <div class="facit" id="wi-facit"></div>
+          <div class="lbl" style="margin-top:22px">Modellens sannolikheter</div>
+          <div id="wi-bars"></div>
+        </div>
+      </div>
+      <div class="strip-wrap">
+        <div class="lbl">Hela spannet: modellens fördelning för varje värde (ytterraden är facit)</div>
+        <svg id="wi-strip" viewBox="0 0 900 150" role="img" aria-label="Modellens utfallsfördelning för varje värde"></svg>
+        <div class="legend2" id="wi-legend"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ BESLUTSKARTA ═════════ -->
+<section id="karta" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Beslutskarta</span>
+      <h2>Så ser lagen ut, rutan för ruta</h2>
+      <p>Varje ruta är ett ärende. Samma sökande, men två fält ändras. Färgen är det regelmotorn avgör enligt studiestödslagen och förordningen. Skarpa gränser är det modellerna måste lära sig: halvtid, tre veckor, åldersgränsen, fribeloppet och retroaktiviteten.</p>
+    </div>
+    <div class="map rv">
+      <div class="map-ctl">
+        <div><label class="lbl" for="map-x">Vågrätt</label><select id="map-x" class="sel"></select></div>
+        <button type="button" class="icon-btn" id="map-swap" aria-label="Byt axlar" title="Byt axlar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></button>
+        <div><label class="lbl" for="map-y">Lodrätt</label><select id="map-y" class="sel"></select></div>
+      </div>
+      <div class="map-grid">
+        <div class="map-chart"><svg id="map-svg" viewBox="0 0 640 440" role="img" aria-label="Beslutskarta: utfall för olika kombinationer av två fält"></svg></div>
+        <div class="map-detail" id="map-detail" aria-live="polite"></div>
+      </div>
+      <div class="legend2" id="map-legend"></div>
+      <p class="note">Basärendet är en heltidsstuderande på 22 veckor, 33 år, utan inkomst och med ansökan inskickad en månad före start. Siffran i rutan är antal beviljade veckor. Allt är påhittat och räknat av regelmotorn, inte av en modell.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ TRÄNING ═════════ -->
+<section id="traning">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Träningen</span>
+      <h2>Så lärde sig modellerna</h2>
+      <p>Kurvorna är de verkliga träningsloggarna från Berzelius-klustret: Sven i två varv över 12 918 exempel, Kev i ett. Spela upp träningen och se felet falla. Förlusten är modellens fel på träningsexempel, inte på testmängden.</p>
+    </div>
+    <div class="train rv">
+      <div class="train-top">
+        <button class="btn primary" id="tr-play" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span>Spela upp</span></button>
+        <div class="tr-read">
+          <div><i class="sw sven"></i><b>Sven 0,6B</b> <span id="tr-s">steg 0 av 3 230</span> · förlust <output id="tr-sl">–</output></div>
+          <div><i class="sw kev"></i><b>Kev 4B</b> <span id="tr-k">steg 0 av 1 615</span> · förlust <output id="tr-kl">–</output></div>
+        </div>
+      </div>
+      <svg id="tr-svg" viewBox="0 0 900 340" role="img" aria-label="Träningsförlust som funktion av hur långt träningen kommit"></svg>
+      <input type="range" id="tr-r" min="0" max="1000" value="0" step="1" aria-label="Hur långt träningen har kommit">
+      <div class="before-after" id="tr-ba" aria-live="polite">
+        <div class="lbl">Efter träningen: träffsäkerhet på testmängden, före och efter</div>
+        <div class="seg" role="group" aria-label="Modell" style="margin-bottom:16px">
+          <button type="button" data-tm="4" aria-pressed="true">Kev 4B</button>
+          <button type="button" data-tm="06" aria-pressed="false">Sven 0,6B</button>
+        </div>
+        <div id="tr-rows"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -125,20 +293,39 @@
       <p>Varje uppgift skapas så att svaret går att kontrollera automatiskt. Det är det som gör att man kan träna och utvärdera utan en språkmodell som domare.</p>
     </div>
 
-    <div class="flow rv">
-      <div class="step"><h3>Akten</h3><p>Ärendets fakta i strukturerad form: sökandens uppgifter, datum, omständigheter. Från publicerade beslut tas utfall och motivering bort.</p></div>
-      <div class="step"><h3>Frågorna</h3><p>En eller flera frågor per akt, med facit. Frågorna följer lagens prövningssteg, till exempel jäv, rätt tid eller studieresultat.</p></div>
-      <div class="step"><h3>Modellen</h3><p>En språkmodell med LoRA-adaptrar och ett litet pekarhuvud läser akten och alternativen och väljer bland dem.</p></div>
-      <div class="step"><h3>Sannolikheterna</h3><p>Ut kommer en sannolikhet per alternativ. Facit används för att mäta träffsäkerhet, kalibrering och rangordning.</p></div>
+    <div class="pipe rv" id="pipe" data-step="1">
+      <div class="pipe-steps" role="tablist" aria-label="Stegen">
+        <button class="ps" role="tab" data-s="1" aria-selected="true"><b>1</b><span>Ett publicerat beslut</span></button>
+        <button class="ps" role="tab" data-s="2" aria-selected="false"><b>2</b><span>Facit klipps bort</span></button>
+        <button class="ps" role="tab" data-s="3" aria-selected="false"><b>3</b><span>Akt och frågor</span></button>
+        <button class="ps" role="tab" data-s="4" aria-selected="false"><b>4</b><span>Modellen svarar</span></button>
+        <button class="play" id="pipe-play" type="button" aria-label="Spela upp automatiskt" title="Spela upp / pausa">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
+      </div>
+      <div class="pipe-stage">
+        <div class="doc">
+          <div class="doc-h">BESLUT · exempel, påhittad text</div>
+          <div class="blk keep"><em>Ärendet</em><p>NN har ansökt om studiemedel för en kurs på halvfart. CSN avslog ansökan med motiveringen att studietakten understiger kravet. NN överklagar och anför att kursen i praktiken motsvarar heltidsstudier.</p></div>
+          <div class="blk cut"><em>Nämndens bedömning</em><p>Nämnden konstaterar att den aktuella kursen omfattar 25 procent av heltid. Rätt till studiemedel förutsätter minst halvtidsstudier. CSN:s beslut är därför riktigt.</p></div>
+          <div class="blk cut"><em>Beslut</em><p>Överklagandet avslås.</p></div>
+          <div class="scissors" aria-hidden="true">✂</div>
+        </div>
+        <div class="akt-card">
+          <div class="lbl">Akt</div>
+          <table class="kv small"><tr><td>Myndighet</td><td>CSN</td></tr><tr><td>Överklagar</td><td>avslag på studiemedel</td></tr><tr><td>Studietakt</td><td>25 %</td></tr><tr><td>Klagandens invändning</td><td>kursen motsvarar heltid</td></tr></table>
+          <div class="lbl" style="margin-top:14px">Fråga</div>
+          <div class="qq">Ändras CSN:s beslut till klagandens fördel?</div>
+          <div class="facit-chip">Facit: nej, uppgiften klipptes ur beslutet</div>
+        </div>
+        <div class="ans-card">
+          <div class="lbl">Modellens svar</div>
+          <div class="pl"><span>Nej</span><span class="track"><span class="fill" data-w="91"></span></span><i>91 %</i></div>
+          <div class="pl"><span>Ja</span><span class="track"><span class="fill dim" data-w="9"></span></span><i>9 %</i></div>
+          <div class="note" style="margin-top:12px">Illustration av formatet. Verkliga svar finns i <a href="#prova">Prova själv</a>.</div>
+        </div>
+      </div>
+      <p class="pipe-cap" id="pipe-cap"></p>
     </div>
-
-    <h3 style="margin-bottom:8px" class="rv">Två riktiga uppgifter</h3>
-    <p class="note rv" style="margin:0 0 20px">Båda är syntetiska och hämtade ur den kvarhållna testmängden. Namn och nummer är påhittade.</p>
-    <div class="tabs rv" role="tablist" aria-label="Exempel på uppgifter">
-      <button class="tab" role="tab" aria-selected="true" data-demo="jav">Jäv (förvaltningslagen)</button>
-      <button class="tab" role="tab" aria-selected="false" data-demo="csn">CSN: studiemedel</button>
-    </div>
-    <div class="demo rv" id="demo" aria-live="polite"></div>
 
     <div class="arch">
       <div class="rv">
@@ -150,18 +337,14 @@
             <rect x="20" y="20" width="600" height="64" rx="14" fill="var(--surface)" stroke="var(--line-2)"/>
             <text x="44" y="48" fill="var(--ink)" font-weight="650">Indata</text>
             <text x="44" y="68" fill="var(--ink-3)" font-size="13.5">akt (strukturerad text) + fråga + svarsalternativ</text>
-
-            <path d="M320 84v28" stroke="var(--ink-3)" stroke-width="1.6"/><path d="M314 106l6 8 6-8" fill="none" stroke="var(--ink-3)" stroke-width="1.6"/>
-
+            <path class="flow-line" d="M320 84v28" stroke="var(--blue)" stroke-width="2"/><path d="M314 106l6 8 6-8" fill="none" stroke="var(--blue)" stroke-width="2"/>
             <rect x="20" y="118" width="600" height="148" rx="16" fill="url(#g1)"/>
             <text x="44" y="150" fill="#fff" font-weight="650" font-size="16">Qwen-basmodell, fryst</text>
             <text x="44" y="172" fill="#bcd3e4" font-size="13.5">0,6 miljarder (Sven) eller 4 miljarder (Kev) parametrar</text>
             <rect x="44" y="190" width="552" height="56" rx="10" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.28)" stroke-dasharray="5 5"/>
             <rect x="58" y="204" width="110" height="28" rx="7" fill="#fecc02"/><text x="113" y="223" text-anchor="middle" fill="#0c1a2a" font-weight="700" font-size="13.5">LoRA, rang 16</text>
             <text x="184" y="223" fill="#e7f0f7" font-size="13.5">små tränade tillägg i alla lager, 52 resp. 149 MB</text>
-
-            <path d="M320 266v28" stroke="var(--ink-3)" stroke-width="1.6"/><path d="M314 288l6 8 6-8" fill="none" stroke="var(--ink-3)" stroke-width="1.6"/>
-
+            <path class="flow-line" d="M320 266v28" stroke="var(--blue)" stroke-width="2"/><path d="M314 288l6 8 6-8" fill="none" stroke="var(--blue)" stroke-width="2"/>
             <rect x="20" y="298" width="600" height="64" rx="14" fill="var(--surface)" stroke="var(--line-2)"/>
             <text x="44" y="326" fill="var(--ink)" font-weight="650">Pekarhuvud</text>
             <text x="44" y="346" fill="var(--ink-3)" font-size="13.5">väljer bland alternativen → en sannolikhet per alternativ</text>
@@ -250,6 +433,20 @@
     </div>
     <div class="rows rv" id="rows" aria-live="polite"></div>
 
+    <div class="rel rv" data-needs="model">
+      <div class="rel-text">
+        <span class="eyebrow">Kalibrering</span>
+        <h3>Hur mycket kan man lita på att modellen är säker?</h3>
+        <p>Om en modell säger 90 % ska den ha rätt i ungefär 90 % av fallen. Diagrammet delar alla svar på testmängden efter modellens säkerhet och visar hur ofta den faktiskt hade rätt. Ligger den blå stapeln nära den gula linjen är säkerheten ärlig; ligger den under är modellen överdrivet säker.</p>
+        <div class="seg" role="group" aria-label="Modell för kalibrering" style="margin-top:6px">
+          <button type="button" data-rm="t4" aria-pressed="true">Kev 4B, efter träning</button>
+          <button type="button" data-rm="t06" aria-pressed="false">Sven 0,6B, efter träning</button>
+          <button type="button" data-rm="z4" aria-pressed="false">Kev 4B, före</button>
+        </div>
+      </div>
+      <svg id="rel-svg" viewBox="0 0 520 340" role="img" aria-label="Kalibreringsdiagram: träffsäkerhet per säkerhetsintervall"></svg>
+    </div>
+
     <div class="reads">
       <div class="read rv"><h4>Reglerna är lärda, men det är inte verkliga akter</h4><p>Närmare 100 % på CSN och förvaltningslagen visar att modellen lärt sig generatorns regler. Det säger inget om hur den läser en verklig handling.</p></div>
       <div class="read rv"><h4>Skolinspektionen är ett riktigt resultat</h4><p>Med 1 616 träningsbeslut når Kev 0,90 på brist per område, utvärderat på beslut som fattats efter allt träningsmaterial.</p></div>
@@ -315,6 +512,15 @@
       <h2>Sex miljöer, fem organ</h2>
       <p>Datamängden <em>myndighetsbeslut</em> är öppen. De syntetiska miljöerna delas upp efter slumpfrö, de verkliga efter beslutsdatum med de senaste ärendena som test.</p>
     </div>
+    <div class="tl rv">
+      <div class="tl-top">
+        <div><span class="eyebrow">Tidslinje</span><h3 style="margin-top:10px">Publicerade beslut, år för år</h3></div>
+        <select id="tl-sel" class="sel" aria-label="Organ"></select>
+      </div>
+      <svg id="tl-svg" viewBox="0 0 900 260" role="img" aria-label="Antal beslut per år, uppdelat på träning, validering och test"></svg>
+      <div class="legend2" id="tl-legend"></div>
+      <p class="note" id="tl-note"></p>
+    </div>
     <div class="tw rv">
       <table class="table">
         <thead><tr><th>Miljö</th><th>Organ</th><th>Uppgifter</th><th>Facit kommer från</th></tr></thead>
@@ -356,7 +562,9 @@
   </div>
 </footer>
 
-<script src="assets/results.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/results.js?v=4"></script>
+<script src="assets/data.js?v=4"></script>
+<script src="assets/static.js?v=4"></script>
+<script src="assets/app.js?v=4"></script>
 </body>
 </html>
